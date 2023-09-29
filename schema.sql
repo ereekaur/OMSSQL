@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(255),
     product_description TEXT,
-    price DECIMAL(10, 2) -- Example: decimal data type for storing prices
+    price DECIMAL(10, 2) 
 );
 
 -- orders table 
