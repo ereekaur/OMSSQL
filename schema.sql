@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS ClientRegistryDB;
 USE ClientRegistryDB;
 
--- Clients table (unchanged)
+-- clients table 
 CREATE TABLE IF NOT EXISTS Clients (
     client_id INT AUTO_INCREMENT PRIMARY KEY,
     etuNimi VARCHAR(255),
@@ -10,11 +10,11 @@ CREATE TABLE IF NOT EXISTS Clients (
     osoite VARCHAR(255)
 );
 
--- Addresses table (combining both shipping and billing addresses)
+-- addresses table 
 CREATE TABLE IF NOT EXISTS Addresses (
     address_id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
-    address_type ENUM('Shipping', 'Billing'), -- Use an ENUM to distinguish between shipping and billing addresses
+    address_type ENUM('Shipping', 'Billing'), 
     street_address VARCHAR(255),
     city VARCHAR(255),
     state VARCHAR(255),
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Addresses (
     country VARCHAR(255)
 );
 
--- Products table (unchanged)
+-- Products table 
 CREATE TABLE IF NOT EXISTS Products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(255),
@@ -30,28 +30,28 @@ CREATE TABLE IF NOT EXISTS Products (
     price DECIMAL(10, 2) -- Example: decimal data type for storing prices
 );
 
--- Orders table (unchanged)
+-- orders table 
 CREATE TABLE IF NOT EXISTS Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
     product_id INT,
     order_date DATE,
     quantity INT,
-    total_price DECIMAL(10, 2), -- Example: decimal data type for storing total price
+    total_price DECIMAL(10, 2), 
     FOREIGN KEY (client_id) REFERENCES Clients(client_id),
     FOREIGN KEY (product_id) REFERENCES Products(product_id)
 );
 
--- Payment Transactions table (unchanged)
+-- payment transactions table 
 CREATE TABLE IF NOT EXISTS PaymentTransactions (
     transaction_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     payment_date DATE,
-    payment_amount DECIMAL(10, 2), -- Example: decimal data type for storing payment amount
+    payment_amount DECIMAL(10, 2), 
     payment_method VARCHAR(255)
 );
 
--- Billing Addresses table
+- billing addresses table
 CREATE TABLE IF NOT EXISTS BillingAddresses (
     billing_address_id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
