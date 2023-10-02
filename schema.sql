@@ -1,3 +1,6 @@
+
+-- SQL schema for OMS application
+
 CREATE DATABASE IF NOT EXISTS ClientRegistryDB;
 USE ClientRegistryDB;
 
@@ -12,19 +15,19 @@ CREATE TABLE IF NOT EXISTS Clients (
 
 -- addresses table 
 CREATE TABLE IF NOT EXISTS Addresses (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,
-    client_id INT,
+    osoite_id INT AUTO_INCREMENT PRIMARY KEY,
+    asiakas_id INT,
     address_type ENUM('Shipping', 'Billing'), 
-    street_address VARCHAR(255),
-    city VARCHAR(255),
+    katu_osoite VARCHAR(255),
+    kaupunki VARCHAR(255),
     state VARCHAR(255),
     postal_code VARCHAR(10),
-    country VARCHAR(255)
+    maa VARCHAR(255)
 );
 
--- Products table 
+-- products table 
 CREATE TABLE IF NOT EXISTS Products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    tuote_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(255),
     product_description TEXT,
     price DECIMAL(10, 2) 
@@ -33,10 +36,10 @@ CREATE TABLE IF NOT EXISTS Products (
 -- orders table 
 CREATE TABLE IF NOT EXISTS Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
-    client_id INT,
-    product_id INT,
+    asiakas_id INT,
+    tuote_id INT,
     order_date DATE,
-    quantity INT,
+    maara INT,
     total_price DECIMAL(10, 2), 
     FOREIGN KEY (client_id) REFERENCES Clients(client_id),
     FOREIGN KEY (product_id) REFERENCES Products(product_id)
@@ -45,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Orders (
 -- payment transactions table 
 CREATE TABLE IF NOT EXISTS PaymentTransactions (
     transaction_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
+    tilaus_id INT,
     payment_date DATE,
     payment_amount DECIMAL(10, 2), 
     payment_method VARCHAR(255)
@@ -54,11 +57,11 @@ CREATE TABLE IF NOT EXISTS PaymentTransactions (
 - billing addresses table
 CREATE TABLE IF NOT EXISTS BillingAddresses (
     billing_address_id INT AUTO_INCREMENT PRIMARY KEY,
-    client_id INT,
-    street_address VARCHAR(255),
-    city VARCHAR(255),
+    asiakas_id INT,
+    katu_osoite VARCHAR(255),
+    kaupunki VARCHAR(255),
     state VARCHAR(255),
     postal_code VARCHAR(10),
-    country VARCHAR(255),
+    maa VARCHAR(255),
     FOREIGN KEY (client_id) REFERENCES Clients(client_id)
 );
